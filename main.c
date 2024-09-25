@@ -112,13 +112,11 @@ neighborJoining(int n, float **distanceMatrix)
                 continue;
             ti = (i < mini) ? i : (i < minj ? i : i - 1);
             
-            int minidx = min(ti, minj);
-            int maxidx = max(ti, minj);
-            distanceMatrix2[maxidx][minidx] = 0.5 * (distanceMatrix[mini][i] + distanceMatrix[minj][i] - distanceMatrix[mini][minj]);
+            distanceMatrix2[mini][ti] = 0.5 * (distanceMatrix[mini][i] + distanceMatrix[minj][i] - distanceMatrix[mini][minj]);
+            distanceMatrix2[ti][mini] = distanceMatrix2[mini][ti];
         }
         
         printDistanceMatrix(n, qmatrix);
-        printf("mini: %d, minj: %d, mindik: %.2f, mindjk: %.2f, curmin: %.2f\n", mini, minj, mindik, mindjk, curmin);
         printDistanceMatrix(n - 1, distanceMatrix2);
         printf("\n");
 
@@ -126,6 +124,7 @@ neighborJoining(int n, float **distanceMatrix)
         distanceMatrix = distanceMatrix2;
     }
 
+    printCluster(szCluster, clusters);
 }
 
 int 
@@ -148,11 +147,11 @@ main() {
     float **distanceMatrix = allocateMatrix(nSequences);
     //fillDistanceMatrix(nSequences, sequences, distanceMatrix);
     float values[5][5] = {
-        {0, 5, 9, 9, 8},
-        {5, 0, 10, 10, 9},
-        {9, 10, 0, 8, 7},
-        {9, 10, 8, 0, 3},
-        {8, 9, 7, 3, 0}
+        {0, 17, 21, 31, 23},
+        {17, 0, 30, 34, 21},
+        {21, 30, 0, 28, 39},
+        {31, 34, 28, 0, 43},
+        {23, 21, 39, 43, 0}
     };
 
     for (int i = 0; i < nSequences; i++) {
@@ -162,7 +161,8 @@ main() {
     }
 
     // printDistanceMatrix(nSequences, distanceMatrix);
-    neighborJoining(nSequences, distanceMatrix);
+    //neighborJoining(nSequences, distanceMatrix);
+    upgma(nSequences, distanceMatrix);
 
     return 0;
 }

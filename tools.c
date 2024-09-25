@@ -58,7 +58,7 @@ fillDistanceMatrixFromDistanceMatrix(int nSequences, float **inDistanceMatrix, f
     for (int i = 0; i < nSequences; i++) {
         if (i == ignoreidx)
             continue;
-        for (int j = 0; j < i; j++) {
+        for (int j = 0; j < nSequences; j++) {
             if (j == ignoreidx)
                 continue;
             ti = (i < ignoreidx) ? i : i - 1;
