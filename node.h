@@ -10,7 +10,7 @@ typedef struct Node {
     union {
         int value;
         struct {
-            int length[2];
+            float length[2];
             struct Node *child[2];
         };
     };
@@ -21,5 +21,9 @@ Node* create_cluster_node(Node*, Node*);
 Node** resize_clusters(Node**, int*, int);
 void printNode(Node*);
 void printCluster(int, Node**);
+void printCluster2(int, Node**);
+void printCluster3(int, Node**, int, char**);
+void printNodeASCII(Node*, int, int);
+void printNodeASCIIfromArray(Node*, int, int, int, char**);
 
 #endif
